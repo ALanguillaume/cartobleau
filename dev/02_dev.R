@@ -19,7 +19,7 @@
 attachment::att_amend_desc()
 
 ## Update README
-knitr::knit("README.Rmd")
+rmarkdown::render("README.Rmd")
 
 ## Add modules ----
 ## Create a module infrastructure in R/
