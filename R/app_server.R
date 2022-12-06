@@ -3,7 +3,6 @@
 #' @param input,output,session Internal parameters for {shiny}.
 #'     DO NOT REMOVE.
 #' @import shiny
-#' @importFrom leaflet renderLeaflet leaflet addTiles setView
 #' @noRd
 app_server <- function(input, output, session) {
   global <- reactiveValues(
@@ -11,13 +10,9 @@ app_server <- function(input, output, session) {
   )
 
   output$map <- renderLeaflet({
-    leaflet() |>
-      addTiles() |>
-      setView(
-        lng = 2.8186287540284862,
-        lat = 48.37272732692216,
-        zoom = 15
-      )
+    draw_interactive_map(
+      data_sf = read_test_data()
+    )
   })
 
   observeEvent(
