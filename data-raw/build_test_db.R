@@ -1,6 +1,9 @@
 library(DBI)
 
-test_db <- dbConnect(RSQLite::SQLite(), "my-db.sqlite")
+test_db <- dbConnect(
+  drv = RSQLite::SQLite(),
+  dbname = file.path("inst/", "test_db.sqlite")
+)
 
 lorem_ipsum <- paste(
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
@@ -52,7 +55,8 @@ df_card_template <- lapply(
 
 file.copy(
   from = df_card_template[["raw_image_path"]],
-  to = "inst/images/"
+  to = "inst/images/",
+  overwrite = TRUE
 )
 file.rename(
   from = file.path(
@@ -68,6 +72,7 @@ file.rename(
 dbWriteTable(
   conn = test_db,
   name = "data",
-  value = df_card_template
+  value = df_card_template,
+  overwrite = TRUE
 )
 dbDisconnect(test_db)
