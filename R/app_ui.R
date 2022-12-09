@@ -19,7 +19,11 @@ app_ui <- function(request) {
           class = "outer",
           # If not using custom CSS, set height of leafletOutput to a number
           # instead of percent
-          leafletOutput("map", width = "100%", height = "100%"),
+          leafletOutput(
+            outputId = "map",
+            width = "100%",
+            height = "100%"
+          ),
         )
       ),
       tabPanel(

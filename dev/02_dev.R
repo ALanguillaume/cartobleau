@@ -19,16 +19,20 @@
 attachment::att_amend_desc()
 
 ## Update README
+# usethis::use_git_ignore("READMR.html")
+# usethis::use_build_ignore("README.html")
 rmarkdown::render("README.Rmd")
 
 ## Add modules ----
 ## Create a module infrastructure in R/
-golem::add_module(name = "name_of_module1", with_test = TRUE) # Name of the module
-golem::add_module(name = "name_of_module2", with_test = TRUE) # Name of the module
+golem::add_module(name = "name_of_module1", with_test = TRUE)
+golem::add_module(name = "name_of_module2", with_test = TRUE)
 
 ## Add helper functions ----
 ## Creates fct_* and utils_*
-golem::add_fct("helpers", with_test = TRUE)
+golem::add_fct("orm", with_test = TRUE)
+golem::add_fct("map", with_test = TRUE)
+
 golem::add_utils("helpers", with_test = TRUE)
 
 ## External resources
@@ -42,7 +46,7 @@ golem::add_sass_file("custom")
 
 ## Add internal datasets ----
 ## If you have data in your package
-usethis::use_data_raw(name = "my_dataset", open = FALSE)
+usethis::use_data_raw(name = "build_test_db", open = TRUE)
 
 ## Tests ----
 ## Add one line by test you want to create
@@ -69,12 +73,8 @@ covrpage::covrpage()
 usethis::use_github()
 
 # GitHub Actions
-usethis::use_github_action()
-# Chose one of the three
-# See https://usethis.r-lib.org/reference/use_github_action.html
 usethis::use_github_action_check_release()
-usethis::use_github_action_check_standard()
-usethis::use_github_action_check_full()
+
 # Add action for PR
 usethis::use_github_action_pr_commands()
 
