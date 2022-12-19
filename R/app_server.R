@@ -6,14 +6,42 @@
 #' @noRd
 app_server <- function(input, output, session) {
   global <- reactiveValues(
-    card_bank = data.frame()
+    data_sf = read_test_data()
   )
 
   output$map <- renderLeaflet({
     draw_interactive_map(
-      data_sf = read_test_data()
+      data_sf = global$data_sf
     )
   })
+
+  observeEvent(
+    input$map_marker_click,
+    {
+      #' @importFrom dplyr filter
+      to_display_df <- global$data_sf |>
+        filter(
+          id == input$map_marker_click$id
+        )
+      # browser()
+      showModal(
+        modalDialog(
+          easyClose = TRUE,
+          size = "l",
+          footer = modalButton("Fermer"),
+          h3(to_display_df$title),
+          p(to_display_df$description),
+          tags$img(
+            src = file.path(
+              "www/images",
+              sprintf("%s.jpg", input$map_marker_click$id)
+              ),
+            width = "800"
+          )
+        )
+      )
+    }
+  )
 
   observeEvent(
     input$map_click,

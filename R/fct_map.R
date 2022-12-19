@@ -20,6 +20,7 @@ draw_interactive_map <- function(data_sf) {
     ) |>
     addTiles() |>
     addMarkers(
+      layerId = ~id,
       label = ~title
     ) |>
     setView(
